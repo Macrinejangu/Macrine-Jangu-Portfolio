@@ -2,532 +2,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Macrine Jangu</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink: #0f0e0d;
-    --ink-mid: #3a3835;
-    --ink-soft: #7a7670;
-    --paper: #f7f4ef;
-    --paper-warm: #ede9e1;
-    --accent: #b85c38;
-    --accent-soft: #f0e0d6;
-    --line: rgba(15,14,13,0.12);
-    --serif: 'Playfair Display', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 3rem;
-    background: rgba(247,244,239,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    letter-spacing: 0.02em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--accent); }
-
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 3rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg-number {
-    position: absolute;
-    top: 50%;
-    right: -2rem;
-    transform: translateY(-50%);
-    font-family: var(--serif);
-    font-size: clamp(200px, 30vw, 380px);
-    color: var(--paper-warm);
-    line-height: 1;
-    user-select: none;
-    pointer-events: none;
-    letter-spacing: -0.05em;
-  }
-
-  .hero-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.8s ease both;
-  }
-
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 7vw, 6.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
-
-  .hero-name em { font-style: italic; color: var(--accent); }
-
-  .hero-tagline {
-    max-width: 560px;
-    font-size: 1.05rem;
-    color: var(--ink-mid);
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    animation: fadeUp 0.8s 0.2s ease both;
-    border-left: 2px solid var(--accent);
-    padding-left: 1.25rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    font-size: 0.8rem;
-    font-family: var(--sans);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--ink);
-    color: var(--ink);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-
-  .btn:hover { background: var(--ink); color: var(--paper); }
-
-  .btn-accent {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-
-  .btn-accent:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-
-  section { padding: 6rem 3rem; }
-
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 3rem;
-    max-width: 640px;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .about-text p {
-    color: var(--ink-mid);
-    font-weight: 300;
-    margin-bottom: 1.25rem;
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  .about-text p strong { color: var(--ink); font-weight: 500; }
-
-  .skills-col { padding-top: 1rem; }
-
-  .skill-group { margin-bottom: 2rem; }
-
-  .skill-group-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-
-  .skill-tag {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid var(--line);
-    color: var(--ink-mid);
-    background: white;
-    letter-spacing: 0.02em;
-  }
-
-  .skill-tag.highlight {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .work-section { background: var(--paper-warm); }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .work-card {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 2rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .work-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-
-  .work-card:hover::before { transform: scaleX(1); }
-  .work-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-
-  .work-card-num {
-    font-family: var(--serif);
-    font-size: 0.85rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-
-  .work-card-category {
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 0.75rem;
-  }
-
-  .work-card-title {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-    color: var(--ink);
-  }
-
-  .work-card-desc {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
-  }
-
-  .work-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-
-  .work-tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    background: var(--paper-warm);
-    color: var(--ink-soft);
-    border: 1px solid var(--line);
-  }
-
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15,14,13,0.6);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    padding: 2rem;
-  }
-
-  .modal-overlay.active { opacity: 1; pointer-events: all; }
-
-  .modal {
-    background: var(--paper);
-    max-width: 680px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 3rem;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform 0.3s;
-  }
-
-  .modal-overlay.active .modal { transform: translateY(0); }
-
-  .modal-close {
-    position: absolute;
-    top: 1.5rem; right: 1.5rem;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--ink-soft);
-    line-height: 1;
-    padding: 0.25rem;
-  }
-
-  .modal-close:hover { color: var(--ink); }
-
-  .modal-category {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-
-  .modal-title {
-    font-family: var(--serif);
-    font-size: 2rem;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-  }
-
-  .modal-subtitle {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .modal-section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .modal-body p {
-    color: var(--ink-mid);
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: 0.75rem;
-    font-size: 0.92rem;
-  }
-
-  .modal-body ul { padding-left: 1.25rem; margin-bottom: 0.75rem; }
-
-  .modal-body ul li {
-    color: var(--ink-mid);
-    font-weight: 300;
-    font-size: 0.92rem;
-    margin-bottom: 0.4rem;
-    line-height: 1.7;
-  }
-
-  .modal-outcome {
-    background: var(--accent-soft);
-    border-left: 3px solid var(--accent);
-    padding: 1rem 1.25rem;
-    margin-top: 1.25rem;
-    font-size: 0.9rem;
-    color: var(--ink-mid);
-    font-style: italic;
-    line-height: 1.7;
-  }
-
-  .ai-section { background: var(--ink); color: var(--paper); }
-  .ai-section .section-label { color: #e8956a; }
-  .ai-section .section-title { color: var(--paper); }
-
-  .ai-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .ai-cell {
-    padding: 2rem;
-    background: var(--ink);
-    transition: background 0.2s;
-  }
-
-  .ai-cell:hover { background: var(--ink-mid); }
-
-  .ai-cell-icon { font-size: 1.5rem; margin-bottom: 1rem; opacity: 0.6; }
-
-  .ai-cell-title {
-    font-family: var(--serif);
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--paper);
-  }
-
-  .ai-cell-desc {
-    font-size: 0.8rem;
-    color: rgba(247,244,239,0.5);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .contact-text p {
-    font-size: 1rem;
-    color: var(--ink-mid);
-    font-weight: 300;
-    line-height: 1.8;
-    margin-bottom: 1rem;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-top: 1rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: var(--ink-mid);
-    font-size: 0.88rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
-    transition: color 0.2s;
-  }
-
-  .contact-link:hover { color: var(--accent); }
-
-  .contact-link-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    min-width: 70px;
-  }
-
-  footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.05em; }
-
-  .footer-logo {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--ink-soft);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--line); }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    section { padding: 4rem 1.5rem; }
-    .hero { padding: 0 1.5rem 4rem; }
-    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-bg-number { display: none; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0e0d;--ink-mid:#3a3835;--ink-soft:#7a7670;
+  --paper:#f7f4ef;--paper-warm:#ede9e1;
+  --accent:#b85c38;--accent-soft:#f0e0d6;
+  --line:rgba(15,14,13,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 3rem;background:rgba(247,244,239,0.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:1.75rem;list-style:none}
+.nav-links a{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:50%;right:-2rem;transform:translateY(-50%);font-family:var(--serif);font-size:clamp(180px,28vw,360px);color:var(--paper-warm);line-height:1;user-select:none;pointer-events:none;letter-spacing:-0.05em}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;animation:fadeUp 0.8s ease both}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,7vw,6.5rem);line-height:0.95;letter-spacing:-0.02em;margin-bottom:2rem;animation:fadeUp 0.8s 0.1s ease both}
+.hero-name em{font-style:italic;color:var(--accent)}
+.hero-tagline{max-width:560px;font-size:1.05rem;color:var(--ink-mid);font-weight:300;line-height:1.8;margin-bottom:3rem;animation:fadeUp 0.8s 0.2s ease both;border-left:2px solid var(--accent);padding-left:1.25rem}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.8s 0.3s ease both}
+
+.btn{display:inline-block;padding:0.75rem 2rem;font-size:0.8rem;font-family:var(--sans);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;transition:all 0.25s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-accent{background:var(--accent);border-color:var(--accent);color:white}
+.btn-accent:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-sm{padding:0.5rem 1.25rem;font-size:0.72rem}
+
+section{padding:6rem 3rem}
+.section-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.section-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:3rem;max-width:640px}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{color:var(--ink-mid);font-weight:300;margin-bottom:1.25rem;font-size:1rem;line-height:1.8}
+.about-text p strong{color:var(--ink);font-weight:500}
+.skill-group{margin-bottom:2rem}
+.skill-group-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--line)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-tag{font-size:0.75rem;padding:0.3rem 0.75rem;border:1px solid var(--line);color:var(--ink-mid);background:white}
+.skill-tag.hi{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+
+/* CASE STUDIES */
+.work-section{background:var(--paper-warm)}
+.work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem}
+.work-card{background:var(--paper);border:1px solid var(--line);padding:2rem;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
+.work-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.work-card:hover::before{transform:scaleX(1)}
+.work-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.card-num{font-family:var(--serif);font-size:0.85rem;color:var(--accent);margin-bottom:1rem;font-style:italic}
+.card-cat{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.75rem}
+.card-title{font-family:var(--serif);font-size:1.25rem;line-height:1.3;margin-bottom:1rem;color:var(--ink)}
+.card-desc{font-size:0.88rem;color:var(--ink-soft);line-height:1.7;margin-bottom:1.25rem}
+.card-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.card-tag{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.5rem;background:var(--paper-warm);color:var(--ink-soft);border:1px solid var(--line)}
+
+/* CREATIVE SECTION — tab nav */
+.creative-section{background:var(--ink)}
+.creative-section .section-label{color:#e8956a}
+.creative-section .section-title{color:var(--paper)}
+
+.tab-nav{display:flex;gap:0;margin-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.12)}
+.tab-btn{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.75rem 1.5rem;background:none;border:none;color:rgba(247,244,239,0.45);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;font-family:var(--sans)}
+.tab-btn.active{color:var(--paper);border-bottom-color:#e8956a}
+.tab-btn:hover{color:var(--paper)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ops cards */
+.ops-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,0.06)}
+.ops-card{background:var(--ink);padding:2rem;transition:background 0.2s}
+.ops-card:hover{background:#1e1c1a}
+.ops-card-cat{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#e8956a;margin-bottom:0.75rem}
+.ops-card-title{font-family:var(--serif);font-size:1.1rem;color:var(--paper);margin-bottom:0.75rem;line-height:1.3}
+.ops-card-desc{font-size:0.82rem;color:rgba(247,244,239,0.5);line-height:1.7;margin-bottom:1.25rem}
+.ops-card-link{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#e8956a;text-decoration:none;border-bottom:1px solid rgba(232,149,106,0.3);padding-bottom:2px;transition:all 0.2s}
+.ops-card-link:hover{border-bottom-color:#e8956a}
+
+/* writing cards */
+.writing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,0.06)}
+.writing-card{background:var(--ink);padding:2rem;transition:background 0.2s}
+.writing-card:hover{background:#1e1c1a}
+.writing-type{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(247,244,239,0.4);margin-bottom:0.5rem}
+.writing-title{font-family:var(--serif);font-size:1rem;color:var(--paper);margin-bottom:0.5rem;line-height:1.4}
+.writing-desc{font-size:0.8rem;color:rgba(247,244,239,0.45);line-height:1.7;margin-bottom:1.25rem}
+.writing-link{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#e8956a;text-decoration:none;border-bottom:1px solid rgba(232,149,106,0.3);padding-bottom:2px;transition:border-color 0.2s}
+.writing-link:hover{border-bottom-color:#e8956a}
+
+/* design grid */
+.design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.design-card{background:#1a1816;border:1px solid rgba(255,255,255,0.06);padding:1.75rem;transition:background 0.2s}
+.design-card:hover{background:#222}
+.design-card-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(247,244,239,0.35);margin-bottom:0.75rem}
+.design-card-title{font-family:var(--serif);font-size:1rem;color:var(--paper);margin-bottom:0.5rem}
+.design-card-desc{font-size:0.8rem;color:rgba(247,244,239,0.45);line-height:1.7;margin-bottom:1.25rem}
+.design-card-link{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#e8956a;text-decoration:none;border-bottom:1px solid rgba(232,149,106,0.3);padding-bottom:2px}
+.design-card-link:hover{border-bottom-color:#e8956a}
+
+/* video */
+.video-row{display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap}
+.video-info{flex:1;min-width:260px}
+.video-info h3{font-family:var(--serif);font-size:1.4rem;color:var(--paper);margin-bottom:1rem;line-height:1.3}
+.video-info p{font-size:0.88rem;color:rgba(247,244,239,0.55);line-height:1.8;margin-bottom:1rem}
+.video-meta{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem}
+.video-meta-tag{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(255,255,255,0.15);color:rgba(247,244,239,0.5)}
+
+/* AI */
+.ai-section{background:var(--paper-warm)}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+.ai-card{background:var(--paper);border:1px solid var(--line);padding:2rem}
+.ai-icon{font-size:1.4rem;margin-bottom:1rem;opacity:0.5}
+.ai-title{font-family:var(--serif);font-size:1rem;margin-bottom:0.5rem;color:var(--ink)}
+.ai-desc{font-size:0.82rem;color:var(--ink-soft);line-height:1.7}
+
+/* CONTACT */
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-text p{font-size:1rem;color:var(--ink-mid);font-weight:300;line-height:1.8;margin-bottom:1rem}
+.contact-row{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--ink-mid);font-size:0.88rem;padding:0.75rem 0;border-bottom:1px solid var(--line);transition:color 0.2s}
+.contact-row:hover{color:var(--accent)}
+.contact-lbl{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-soft);min-width:70px}
+
+footer{padding:2rem 3rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:0.78rem;color:var(--ink-soft)}
+.footer-logo{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink-soft)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,14,13,0.65);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:2rem}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:var(--paper);max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:3rem;position:relative;transform:translateY(20px);transition:transform 0.3s}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-soft);padding:0.25rem}
+.modal-close:hover{color:var(--ink)}
+.modal-cat{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.modal-title{font-family:var(--serif);font-size:2rem;line-height:1.2;margin-bottom:0.5rem}
+.modal-sub{font-size:0.88rem;color:var(--ink-soft);margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.modal-lbl{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.5rem;margin-top:1.5rem}
+.modal-body p{color:var(--ink-mid);font-weight:300;line-height:1.8;margin-bottom:0.75rem;font-size:0.92rem}
+.modal-body ul{padding-left:1.25rem;margin-bottom:0.75rem}
+.modal-body li{color:var(--ink-mid);font-weight:300;font-size:0.92rem;margin-bottom:0.4rem;line-height:1.7}
+.modal-outcome{background:var(--accent-soft);border-left:3px solid var(--accent);padding:1rem 1.25rem;margin-top:1.25rem;font-size:0.9rem;color:var(--ink-mid);font-style:italic;line-height:1.7}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--line)}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  section{padding:4rem 1.5rem}
+  .hero{padding:0 1.5rem 4rem}
+  .about-grid,.contact-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-bg{display:none}
+  footer{flex-direction:column;gap:0.5rem;text-align:center}
+  .tab-btn{padding:0.65rem 1rem;font-size:0.68rem}
+}
 </style>
 </head>
 <body>
@@ -537,13 +175,15 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#creative">Creative</a></li>
     <li><a href="#ai">Applied AI</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
+<!-- HERO -->
 <section id="top" class="hero">
-  <div class="hero-bg-number" aria-hidden="true">MJ</div>
+  <div class="hero-bg" aria-hidden="true">MJ</div>
   <p class="hero-eyebrow">Systems. Communication. Growth.</p>
   <h1 class="hero-name">Macrine<br/><em>Jangu</em></h1>
   <p class="hero-tagline">I build systems that move things forward — revenue pipelines, automation infrastructure, communication that lands, and the operational scaffolding that holds it all together.</p>
@@ -553,99 +193,210 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <p class="section-label fade-in">Who I am</p>
   <h2 class="section-title fade-in">Operations, systems, and the written word.</h2>
   <div class="about-grid">
     <div class="about-text fade-in">
-      <p>I sit at the intersection of <strong>technical operations, growth marketing, and communications</strong>. My work spans building CRM infrastructure from scratch, designing cold outbound systems, writing copy that converts, and architecting automations that save teams hours each week.</p>
-      <p>I trained in software engineering at <strong>Moringa School</strong> and cut my teeth in journalism and communications before pivoting into technical roles. That mix — storytelling plus systems thinking — is what makes my work different.</p>
+      <p>I sit at the intersection of <strong>technical operations, growth marketing, and communications</strong>. My work spans building CRM infrastructure from scratch, designing cold outbound systems, producing video content, writing copy that converts, and architecting automations that save teams hours each week.</p>
+      <p>I trained in software engineering at <strong>Moringa School</strong> and cut my teeth in journalism and communications before moving into technical roles. That combination — storytelling plus systems thinking — shapes everything I build.</p>
       <p>Based in Nairobi. Available for remote-first roles, with active interest in opportunities in the UK and Luxembourg.</p>
-      <div style="margin-top: 2rem;">
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
         <a href="https://github.com/macrinejangu" class="btn" target="_blank" rel="noopener">GitHub &rarr;</a>
+        <a href="https://medium.com/@macrinejangu" class="btn" target="_blank" rel="noopener">Medium &rarr;</a>
       </div>
     </div>
-    <div class="skills-col fade-in">
+    <div class="fade-in">
       <div class="skill-group">
         <p class="skill-group-label">Technical Operations</p>
         <div class="skill-tags">
-          <span class="skill-tag highlight">CRM Architecture</span>
-          <span class="skill-tag highlight">n8n Automation</span>
-          <span class="skill-tag highlight">Webhook Pipelines</span>
-          <span class="skill-tag">Close CRM</span>
-          <span class="skill-tag">Google Apps Script</span>
-          <span class="skill-tag">SOP Design</span>
+          <span class="skill-tag hi">CRM Architecture</span><span class="skill-tag hi">n8n Automation</span><span class="skill-tag hi">Webhook Pipelines</span><span class="skill-tag">Close CRM</span><span class="skill-tag">Google Apps Script</span><span class="skill-tag">SOP Design</span>
         </div>
       </div>
       <div class="skill-group">
         <p class="skill-group-label">Growth & Revenue Ops</p>
         <div class="skill-tags">
-          <span class="skill-tag highlight">Cold Outbound Strategy</span>
-          <span class="skill-tag">SDR Cadence Design</span>
-          <span class="skill-tag">Campaign Analysis</span>
-          <span class="skill-tag">Lead Routing</span>
-          <span class="skill-tag">Instantly</span>
-          <span class="skill-tag">Leadbird</span>
+          <span class="skill-tag hi">Cold Outbound Strategy</span><span class="skill-tag">SDR Cadence Design</span><span class="skill-tag">Campaign Analysis</span><span class="skill-tag">Lead Routing</span><span class="skill-tag">Instantly</span><span class="skill-tag">Leadbird</span>
         </div>
       </div>
       <div class="skill-group">
         <p class="skill-group-label">Software Engineering</p>
         <div class="skill-tags">
-          <span class="skill-tag highlight">Next.js 14</span>
-          <span class="skill-tag highlight">React</span>
-          <span class="skill-tag">FastAPI</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">Supabase</span>
-          <span class="skill-tag">Vercel / Netlify</span>
+          <span class="skill-tag hi">Next.js 14</span><span class="skill-tag hi">React</span><span class="skill-tag">FastAPI</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Supabase</span><span class="skill-tag">Vercel / Netlify</span>
         </div>
       </div>
       <div class="skill-group">
         <p class="skill-group-label">Communications & Marketing</p>
         <div class="skill-tags">
-          <span class="skill-tag highlight">B2B Copywriting</span>
-          <span class="skill-tag">Content Strategy</span>
-          <span class="skill-tag">Employer Branding</span>
-          <span class="skill-tag">Policy & Advocacy</span>
-          <span class="skill-tag">Journalism</span>
+          <span class="skill-tag hi">B2B Copywriting</span><span class="skill-tag hi">Video Production</span><span class="skill-tag">Content Strategy</span><span class="skill-tag">Employer Branding</span><span class="skill-tag">Policy & Advocacy</span><span class="skill-tag">Journalism</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CASE STUDIES -->
 <section id="work" class="work-section">
   <p class="section-label fade-in">Selected work</p>
   <h2 class="section-title fade-in">Builds that solved real problems.</h2>
   <div class="work-grid" id="work-grid"></div>
 </section>
 
-<section id="ai" class="ai-section">
-  <p class="section-label fade-in">Applied AI Engineering</p>
-  <h2 class="section-title fade-in">AI isn't the product. It's the infrastructure.</h2>
-  <div class="ai-grid">
-    <div class="ai-cell fade-in">
-      <div class="ai-cell-icon">⚙</div>
-      <p class="ai-cell-title">Workflow Automation</p>
-      <p class="ai-cell-desc">Built multi-step n8n workflows connecting Leadbird, Close CRM, and webhook triggers. Designed for real-time reply routing with conditional logic and error handling.</p>
+<!-- CREATIVE WORK — tabbed -->
+<section id="creative" class="creative-section">
+  <p class="section-label fade-in">Creative & Operational Work</p>
+  <h2 class="section-title fade-in">Writing, design, video, and documentation.</h2>
+  <div class="tab-nav" role="tablist">
+    <button class="tab-btn active" role="tab" data-tab="ops">Ops Docs</button>
+    <button class="tab-btn" role="tab" data-tab="writing">Writing</button>
+    <button class="tab-btn" role="tab" data-tab="design">Design</button>
+    <button class="tab-btn" role="tab" data-tab="video">Video</button>
+  </div>
+
+  <!-- OPS DOCS -->
+  <div class="tab-panel active" id="tab-ops">
+    <div class="ops-grid">
+      <div class="ops-card">
+        <p class="ops-card-cat">Sales Playbook</p>
+        <h3 class="ops-card-title">Post-Reply Sales Motion Playbook v2</h3>
+        <p class="ops-card-desc">End-to-end playbook converting positive cold email replies into booked interviews within four calendar days. Covers the full LDR-SDR-RevOps motion, every script, objection branch, and Close CRM stage transition.</p>
+        <a href="https://drive.google.com/file/d/1GU7ALRns9zsLkCnNUFHSa8_iVAZNs7DR/view" class="ops-card-link" target="_blank" rel="noopener">View document &rarr;</a>
+      </div>
+      <div class="ops-card">
+        <p class="ops-card-cat">Onboarding Framework</p>
+        <h3 class="ops-card-title">30-60-90 Day Onboarding Roadmap</h3>
+        <p class="ops-card-desc">Structured onboarding plan built for the Growth Coordinator role. Phases cover tool fluency, outreach ownership, booking consistency, and playbook authorship — with defined success criteria at each milestone.</p>
+        <a href="https://drive.google.com/file/d/18d2cT8sMp3czQ4h-JSjNen-NLiCdDAOn/view" class="ops-card-link" target="_blank" rel="noopener">View document &rarr;</a>
+      </div>
+      <div class="ops-card">
+        <p class="ops-card-cat">Strategy Memo</p>
+        <h3 class="ops-card-title">Theory of Constraints — Growth Bottleneck Analysis</h3>
+        <p class="ops-card-desc">Applied Theory of Constraints to identify top-of-funnel lead volume as the binding constraint in the revenue engine. Defines execution priorities, ICP alignment, and metric thresholds across the full funnel.</p>
+        <a href="https://drive.google.com/file/d/13SKzuVxAZKFnc8mwoGaRtCQsgGVSoM6e/view" class="ops-card-link" target="_blank" rel="noopener">View document &rarr;</a>
+      </div>
     </div>
-    <div class="ai-cell fade-in">
-      <div class="ai-cell-icon">⬡</div>
-      <p class="ai-cell-title">AI-Assisted Ops Builds</p>
-      <p class="ai-cell-desc">Used AI tools to accelerate SOP drafting, cadence design, campaign analysis, and systems documentation. Reduced manual iteration cycles significantly.</p>
+  </div>
+
+  <!-- WRITING -->
+  <div class="tab-panel" id="tab-writing">
+    <div class="writing-grid">
+      <div class="writing-card">
+        <p class="writing-type">Analysis / Technology</p>
+        <h3 class="writing-title">Artificial Intelligence and Conscious Bias in Kenya</h3>
+        <p class="writing-desc">Examines how AI systems encode bias in the Kenyan context — and what accountability looks like when the technology outpaces the regulation.</p>
+        <a href="https://medium.com/@macrinejangu/artificial-intelligence-and-conscious-bias-in-kenya-e81dc8605acd" class="writing-link" target="_blank" rel="noopener">Read on Medium &rarr;</a>
+      </div>
+      <div class="writing-card">
+        <p class="writing-type">Policy / Education</p>
+        <h3 class="writing-title">Kenya's Debt Crisis and Its Impact on Education</h3>
+        <p class="writing-desc">Traces the downstream effects of Kenya's debt burden on the education sector — funding gaps, teacher shortages, and access inequities.</p>
+        <a href="https://medium.com/@macrinejangu/understanding-kenyas-debt-challenges-and-its-impact-on-education-0b1e677e2f98" class="writing-link" target="_blank" rel="noopener">Read on Medium &rarr;</a>
+      </div>
+      <div class="writing-card">
+        <p class="writing-type">Health Policy</p>
+        <h3 class="writing-title">The State of Healthcare in Kenya Today</h3>
+        <p class="writing-desc">A ground-level assessment of Kenya's healthcare system — infrastructure gaps, policy failures, and what sustainable reform would require.</p>
+        <a href="https://medium.com/@macrinejangu/the-state-of-healthcare-in-the-country-today-46a0621c0b18" class="writing-link" target="_blank" rel="noopener">Read on Medium &rarr;</a>
+      </div>
+      <div class="writing-card">
+        <p class="writing-type">Climate / Agriculture</p>
+        <h3 class="writing-title">Sustainable Farming: Combating Climate Change</h3>
+        <p class="writing-desc">Explores sustainable agricultural practices as a climate response — with a focus on smallholder farmers and systemic change in the African context.</p>
+        <a href="https://medium.com/@macrinejangu/sustainable-farming-combating-climate-change-0e1aa542525b" class="writing-link" target="_blank" rel="noopener">Read on Medium &rarr;</a>
+      </div>
+      <div class="writing-card">
+        <p class="writing-type">LinkedIn / Employer Branding</p>
+        <h3 class="writing-title">Building in Public — Ascend Growth Partners</h3>
+        <p class="writing-desc">Series of LinkedIn posts documenting the systems, people, and processes behind building a remote-first staffing firm. Focuses on culture, ops, and team development.</p>
+        <a href="https://www.linkedin.com/in/macrinejangu" class="writing-link" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      </div>
     </div>
-    <div class="ai-cell fade-in">
-      <div class="ai-cell-icon">↻</div>
-      <p class="ai-cell-title">Intelligent Lead Pipelines</p>
-      <p class="ai-cell-desc">Architected automated lead classification and routing logic. Webhook payloads trigger conditional CRM updates, reducing manual triage to near zero.</p>
+  </div>
+
+  <!-- DESIGN -->
+  <div class="tab-panel" id="tab-design">
+    <div class="design-grid">
+      <div class="design-card">
+        <p class="design-card-label">Pitch Deck / Investor Materials</p>
+        <h3 class="design-card-title">MGEC Capital Pitch Deck</h3>
+        <p class="design-card-desc">Designed the investor pitch deck for MGEC Capital — a boutique fund management services firm targeting PE and real estate fund managers across the UK, Europe, and Asia. Covers vision, business model, market sizing, and fundraising strategy.</p>
+        <a href="https://drive.google.com/file/d/1LrbuEnOgpu3FG6oC8VN9JUFrRImhcEb1/view" class="design-card-link" target="_blank" rel="noopener">View deck &rarr;</a>
+      </div>
+      <div class="design-card">
+        <p class="design-card-label">Campaign Strategy / Marketing</p>
+        <h3 class="design-card-title">Akiba Bank Mobile App Launch Campaign</h3>
+        <p class="design-card-desc">Full campaign strategy for the Akiba Bank mobile app targeting the farming community. Includes social media calendar, influencer collaboration framework, UGC strategy, and a 3-month content plan across IG, Facebook, and Twitter.</p>
+        <a href="https://drive.google.com/file/d/1ife74sQ83eOxtPeSVTkNHoCvHh3QiJK4/view" class="design-card-link" target="_blank" rel="noopener">View strategy &rarr;</a>
+      </div>
+      <div class="design-card">
+        <p class="design-card-label">Advocacy / Employer Branding</p>
+        <h3 class="design-card-title">Code Her Way — Campaign Visual</h3>
+        <p class="design-card-desc">Designed and wrote the creative for the #CodeHerWay campaign spotlighting women developers at Native Coders. Focused on authentic storytelling: asynchronous collaboration, cross-timezone pairing, and building with purpose.</p>
+        <a href="https://drive.google.com/file/d/1H0FweeMvOzqVr0TuAk2p_0aq1zDJc6Hz/view" class="design-card-link" target="_blank" rel="noopener">View visual &rarr;</a>
+      </div>
+      <div class="design-card">
+        <p class="design-card-label">Ops Tool / Team Management</p>
+        <h3 class="design-card-title">Weekly Energy Scorecard</h3>
+        <p class="design-card-desc">Built and ran a weekly energy management scorecard presented to the operations team at xFusion. Covered physical, emotional, mental, and environmental energy dimensions to help leadership understand where the team was breaking and why.</p>
+        <a href="https://drive.google.com/file/d/1p1xX85reDXMlD4bhW6uZTTCvcwIYorWi/view" class="design-card-link" target="_blank" rel="noopener">View scorecard &rarr;</a>
+      </div>
     </div>
-    <div class="ai-cell fade-in">
-      <div class="ai-cell-icon">✦</div>
-      <p class="ai-cell-title">Prompt Engineering</p>
-      <p class="ai-cell-desc">Designed structured prompts for content generation, copy iteration, and internal documentation. Applied across marketing, support, and operations workflows.</p>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="tab-panel" id="tab-video">
+    <div class="video-row">
+      <div class="video-info">
+        <p class="ops-card-cat" style="margin-bottom:0.75rem">Video Production / Advocacy</p>
+        <h3>UWC — United Women's Council Campaign Video</h3>
+        <p>Scripted, shot, edited, posted, and monitored performance for a campaign video for the United Women's Council — a civic education and gender equity organization founded in 2022. The video was designed to communicate the UWC's mission and workshop impact to a broader audience.</p>
+        <div class="video-meta">
+          <span class="video-meta-tag">Scripting</span>
+          <span class="video-meta-tag">Production</span>
+          <span class="video-meta-tag">Editing</span>
+          <span class="video-meta-tag">Distribution</span>
+          <span class="video-meta-tag">Performance Monitoring</span>
+        </div>
+        <a href="https://drive.google.com/file/d/14EVsEvWOpZt3CMqSp7syX92aPfd_mCt2/view" class="ops-card-link" target="_blank" rel="noopener">Watch video &rarr;</a>
+      </div>
+      <div style="flex:1;min-width:260px;background:#1a1816;border:1px solid rgba(255,255,255,0.06);padding:2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1rem;min-height:220px">
+        <div style="font-size:2.5rem;opacity:0.3">&#9654;</div>
+        <p style="font-size:0.8rem;color:rgba(247,244,239,0.35);text-align:center;letter-spacing:0.05em">Hosted on Google Drive<br/>Click link to watch</p>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- APPLIED AI -->
+<section id="ai" class="ai-section">
+  <p class="section-label fade-in">Applied AI Engineering</p>
+  <h2 class="section-title fade-in">AI isn't the product. It's the infrastructure.</h2>
+  <div class="ai-grid">
+    <div class="ai-card fade-in">
+      <div class="ai-icon">&#9881;</div>
+      <p class="ai-title">Workflow Automation</p>
+      <p class="ai-desc">Built multi-step n8n workflows connecting Leadbird, Close CRM, and webhook triggers. Designed for real-time reply routing with conditional logic and error handling.</p>
+    </div>
+    <div class="ai-card fade-in">
+      <div class="ai-icon">&#11042;</div>
+      <p class="ai-title">AI-Assisted Ops Builds</p>
+      <p class="ai-desc">Used AI tools to accelerate SOP drafting, cadence design, campaign analysis, and systems documentation. Reduced manual iteration cycles significantly.</p>
+    </div>
+    <div class="ai-card fade-in">
+      <div class="ai-icon">&#8635;</div>
+      <p class="ai-title">Intelligent Lead Pipelines</p>
+      <p class="ai-desc">Architected automated lead classification and routing logic. Webhook payloads trigger conditional CRM updates, reducing manual triage to near zero.</p>
+    </div>
+    <div class="ai-card fade-in">
+      <div class="ai-icon">&#10022;</div>
+      <p class="ai-title">Prompt Engineering</p>
+      <p class="ai-desc">Designed structured prompts for content generation, copy iteration, and internal documentation. Applied across marketing, support, and operations workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
   <p class="section-label fade-in">Let's talk</p>
   <h2 class="section-title fade-in">Open to the right opportunity.</h2>
@@ -653,28 +404,17 @@
     <div class="contact-text fade-in">
       <p>I'm actively exploring roles in technical operations, growth marketing, communications, and applied AI — primarily in the UK and Luxembourg, with remote-first companies globally.</p>
       <p>If you're building something that needs sharp systems thinking and clear communication, I'd like to hear about it.</p>
-      <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
         <button class="btn btn-accent" id="email-btn">Send an email</button>
         <a href="https://github.com/macrinejangu" class="btn" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
-    <div class="contact-links fade-in">
-      <div class="contact-link">
-        <span class="contact-link-label">Email</span>
-        macrine@example.com
-      </div>
-      <a href="https://github.com/macrinejangu" class="contact-link" target="_blank" rel="noopener">
-        <span class="contact-link-label">GitHub</span>
-        github.com/macrinejangu
-      </a>
-      <div class="contact-link">
-        <span class="contact-link-label">LinkedIn</span>
-        linkedin.com/in/macrinejangu
-      </div>
-      <div class="contact-link">
-        <span class="contact-link-label">Location</span>
-        Nairobi, Kenya — remote-ready
-      </div>
+    <div class="fade-in" style="padding-top:1rem">
+      <div class="contact-row"><span class="contact-lbl">Email</span>macrine@example.com</div>
+      <a href="https://github.com/macrinejangu" class="contact-row" target="_blank" rel="noopener"><span class="contact-lbl">GitHub</span>github.com/macrinejangu</a>
+      <a href="https://medium.com/@macrinejangu" class="contact-row" target="_blank" rel="noopener"><span class="contact-lbl">Medium</span>medium.com/@macrinejangu</a>
+      <div class="contact-row"><span class="contact-lbl">LinkedIn</span>linkedin.com/in/macrinejangu</div>
+      <div class="contact-row"><span class="contact-lbl">Location</span>Nairobi, Kenya — remote-ready</div>
     </div>
   </div>
 </section>
@@ -684,8 +424,9 @@
   <p>&copy; 2026 — Built for the work ahead.</p>
 </footer>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal" id="modal-content">
+  <div class="modal">
     <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
     <div id="modal-body"></div>
   </div>
@@ -693,125 +434,63 @@
 
 <script>
 const EMAIL = 'macrine@example.com';
-
-document.getElementById('email-btn').addEventListener('click', function() {
-  window.location.href = 'mailto:' + EMAIL;
-});
+document.getElementById('email-btn').addEventListener('click',()=>{ window.location.href='mailto:'+EMAIL; });
 
 const projects = [
-  {
-    num: "01",
-    category: "Revenue Operations",
-    title: "Close CRM Architecture — Ascend Growth Partners",
-    desc: "Built the entire CRM system from zero: lead statuses, custom fields, pipelines, 12 workflows, smart views, and email sequences.",
-    tags: ["Close CRM", "RevOps", "Workflow Design", "SDR Ops"],
-    problem: "Ascend had no CRM infrastructure. Leads were tracked manually, with no visibility into pipeline stage, outreach history, or rep activity.",
-    what: ["Architected the full Close CRM system from scratch: lead statuses, custom fields, 12 automated workflows, smart views, and a 17-day 11-touch SDR cadence.", "Built custom call outcome fields, SMS satellite workflow, and Smart View filter logic to surface the right leads at the right time.", "Designed and documented SOPs for cadence use, campaign setup, and CRM hygiene."],
-    outcome: "Reduced manual lead processing time significantly. The system now runs a complete outbound motion with minimal ops overhead.",
-    reflection: "The initial build ran too narrow in scope. I learned to scope builds wider before execution and run reconnaissance before touching live systems."
-  },
-  {
-    num: "02",
-    category: "Technical Operations",
-    title: "Leadbird → n8n → Close CRM Webhook Pipeline",
-    desc: "Real-time reply routing system connecting cold email replies from Leadbird into Close CRM via n8n webhooks with conditional logic.",
-    tags: ["n8n", "Webhooks", "API Integration", "Automation"],
-    problem: "Positive and negative cold email replies were being missed or delayed by hours. No automated routing existed between the email tool and the CRM.",
-    what: ["Designed and built a multi-step n8n workflow that listens for Leadbird webhook triggers and routes reply data into Close CRM in real time.", "Wrote conditional logic to classify reply types (positive, negative, OOO, custom) and trigger the appropriate CRM updates.", "Ran end-to-end verification with test payloads and documented the full pipeline architecture for handoff."],
-    outcome: "Verified end-to-end functionality. Live trigger inconsistency from Leadbird's side remains an open issue, actively being resolved with vendor contacts.",
-    reflection: "Debugging a pipeline where one segment is outside your control taught me how to isolate responsibility precisely and communicate vendor issues without ambiguity."
-  },
-  {
-    num: "03",
-    category: "Software Engineering",
-    title: "Alumni Community Platform",
-    desc: "Full-stack community platform built with Next.js 14, Supabase, and deployed on Vercel.",
-    tags: ["Next.js 14", "Supabase", "Vercel", "Full-Stack"],
-    problem: "An alumni network needed a central platform to connect members, share resources, and maintain community engagement post-program.",
-    what: ["Built the full platform using Next.js 14 App Router with server components, Supabase for authentication and real-time database, and Vercel for deployment.", "Implemented member profiles, community feed, and resource sharing with row-level security policies in Supabase.", "Designed the UI for accessibility and mobile responsiveness from the start."],
-    outcome: "Platform deployed and live on Vercel. Active users accessing community features.",
-    reflection: "This confirmed that I build better when I scope the data model first, before writing a single line of UI."
-  },
-  {
-    num: "04",
-    category: "Software Engineering",
-    title: "CRM Activity Dashboard",
-    desc: "Internal analytics dashboard built with FastAPI, React, and PostgreSQL to surface sales rep activity metrics.",
-    tags: ["FastAPI", "React", "PostgreSQL", "Data Engineering"],
-    problem: "Sales leadership had no real-time view into rep activity — call volumes, email sends, and pipeline movement were buried in raw CRM exports.",
-    what: ["Built a FastAPI backend that pulls and aggregates CRM activity data, stores it in PostgreSQL, and exposes clean REST endpoints.", "Built the React frontend with filterable views by rep, date range, and activity type.", "Designed the data model to support trend analysis over time, not just snapshot reporting."],
-    outcome: "Leadership got a live dashboard replacing manual weekly report pulls. Query response time under 300ms for standard activity views.",
-    reflection: "I'd now build the API schema before the frontend — I spent unnecessary time reworking endpoints mid-build when UI requirements evolved."
-  },
-  {
-    num: "05",
-    category: "Operations & Automation",
-    title: "Issue Log System — Google Apps Script",
-    desc: "Automated issue tracking system connecting Google Forms, Sheets, and Google Chat with Eisenhower Matrix and RACI fields.",
-    tags: ["Google Apps Script", "Automation", "Ops Design", "Process"],
-    problem: "The team had no structured way to log, prioritize, or assign operational issues. Problems were reported ad hoc in chat and lost.",
-    what: ["Built a Google Apps Script system connecting a Google Form intake, Google Sheets log, and automated Google Chat notification on submission.", "Added Eisenhower Matrix priority fields and RACI assignment columns to force structured triage on every issue.", "Enforced the rule that all work routes through the issue log before touching any live system."],
-    outcome: "Issues now tracked, prioritized, and assigned within minutes of submission. Zero-loss incident log since launch.",
-    reflection: "The real win wasn't the code — it was the behavioral change. Building the system meant nothing without getting team buy-in on the process first."
-  }
+  {num:"01",category:"Revenue Operations",title:"Close CRM Architecture — Ascend Growth Partners",desc:"Built the entire CRM system from zero: lead statuses, custom fields, pipelines, 12 workflows, smart views, and email sequences.",tags:["Close CRM","RevOps","Workflow Design","SDR Ops"],problem:"Ascend had no CRM infrastructure. Leads were tracked manually, with no visibility into pipeline stage, outreach history, or rep activity.",what:["Architected the full Close CRM system from scratch: lead statuses, custom fields, 12 automated workflows, smart views, and a 17-day 11-touch SDR cadence.","Built custom call outcome fields, SMS satellite workflow, and Smart View filter logic to surface the right leads at the right time.","Designed and documented SOPs for cadence use, campaign setup, and CRM hygiene."],outcome:"Reduced manual lead processing time significantly. The system now runs a complete outbound motion with minimal ops overhead.",reflection:"The initial build ran too narrow in scope. I learned to scope builds wider before execution and run reconnaissance before touching live systems."},
+  {num:"02",category:"Technical Operations",title:"Leadbird to n8n to Close CRM Webhook Pipeline",desc:"Real-time reply routing system connecting cold email replies from Leadbird into Close CRM via n8n webhooks with conditional logic.",tags:["n8n","Webhooks","API Integration","Automation"],problem:"Positive and negative cold email replies were being missed or delayed by hours. No automated routing existed between the email tool and the CRM.",what:["Designed and built a multi-step n8n workflow that listens for Leadbird webhook triggers and routes reply data into Close CRM in real time.","Wrote conditional logic to classify reply types (positive, negative, OOO, custom) and trigger the appropriate CRM updates.","Ran end-to-end verification with test payloads and documented the full pipeline architecture for handoff."],outcome:"Verified end-to-end functionality. Live trigger inconsistency from Leadbird's side remains an open issue, actively being resolved with vendor contacts.",reflection:"Debugging a pipeline where one segment is outside your control taught me how to isolate responsibility precisely and communicate vendor issues without ambiguity."},
+  {num:"03",category:"Software Engineering",title:"Alumni Community Platform",desc:"Full-stack community platform built with Next.js 14, Supabase, and deployed on Vercel.",tags:["Next.js 14","Supabase","Vercel","Full-Stack"],problem:"An alumni network needed a central platform to connect members, share resources, and maintain community engagement post-program.",what:["Built the full platform using Next.js 14 App Router with server components, Supabase for authentication and real-time database, and Vercel for deployment.","Implemented member profiles, community feed, and resource sharing with row-level security policies in Supabase.","Designed the UI for accessibility and mobile responsiveness from the start."],outcome:"Platform deployed and live on Vercel. Active users accessing community features.",reflection:"This confirmed that I build better when I scope the data model first, before writing a single line of UI."},
+  {num:"04",category:"Software Engineering",title:"CRM Activity Dashboard",desc:"Internal analytics dashboard built with FastAPI, React, and PostgreSQL to surface sales rep activity metrics.",tags:["FastAPI","React","PostgreSQL","Data Engineering"],problem:"Sales leadership had no real-time view into rep activity — call volumes, email sends, and pipeline movement were buried in raw CRM exports.",what:["Built a FastAPI backend that pulls and aggregates CRM activity data, stores it in PostgreSQL, and exposes clean REST endpoints.","Built the React frontend with filterable views by rep, date range, and activity type.","Designed the data model to support trend analysis over time, not just snapshot reporting."],outcome:"Leadership got a live dashboard replacing manual weekly report pulls. Query response time under 300ms for standard activity views.",reflection:"I'd now build the API schema before the frontend — I spent unnecessary time reworking endpoints mid-build when UI requirements evolved."},
+  {num:"05",category:"Operations & Automation",title:"Issue Log System — Google Apps Script",desc:"Automated issue tracking system connecting Google Forms, Sheets, and Google Chat with Eisenhower Matrix and RACI fields.",tags:["Google Apps Script","Automation","Ops Design","Process"],problem:"The team had no structured way to log, prioritize, or assign operational issues. Problems were reported ad hoc in chat and lost.",what:["Built a Google Apps Script system connecting a Google Form intake, Google Sheets log, and automated Google Chat notification on submission.","Added Eisenhower Matrix priority fields and RACI assignment columns to force structured triage on every issue.","Enforced the rule that all work routes through the issue log before touching any live system."],outcome:"Issues now tracked, prioritized, and assigned within minutes of submission. Zero-loss incident log since launch.",reflection:"The real win wasn't the code — it was the behavioral change. Building the system meant nothing without getting team buy-in on the process first."}
 ];
 
 const grid = document.getElementById('work-grid');
-projects.forEach((p, i) => {
-  const card = document.createElement('div');
-  card.className = 'work-card fade-in';
-  card.innerHTML = `
-    <p class="work-card-num">${p.num}</p>
-    <p class="work-card-category">${p.category}</p>
-    <h3 class="work-card-title">${p.title}</h3>
-    <p class="work-card-desc">${p.desc}</p>
-    <div class="work-card-tags">${p.tags.map(t => `<span class="work-tag">${t}</span>`).join('')}</div>
-  `;
-  card.addEventListener('click', () => openModal(i));
-  grid.appendChild(card);
+projects.forEach((p,i)=>{
+  const c = document.createElement('div');
+  c.className = 'work-card fade-in';
+  c.innerHTML = `<p class="card-num">${p.num}</p><p class="card-cat">${p.category}</p><h3 class="card-title">${p.title}</h3><p class="card-desc">${p.desc}</p><div class="card-tags">${p.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>`;
+  c.addEventListener('click',()=>openModal(i));
+  grid.appendChild(c);
 });
 
-function openModal(i) {
+function openModal(i){
   const p = projects[i];
   document.getElementById('modal-body').innerHTML = `
-    <p class="modal-category">${p.category}</p>
+    <p class="modal-cat">${p.category}</p>
     <h2 class="modal-title">${p.title}</h2>
-    <p class="modal-subtitle">${p.desc}</p>
+    <p class="modal-sub">${p.desc}</p>
     <div class="modal-body">
-      <p class="modal-section-label">The problem</p>
-      <p>${p.problem}</p>
-      <p class="modal-section-label">What I built</p>
-      <ul>${p.what.map(w => `<li>${w}</li>`).join('')}</ul>
-      <p class="modal-section-label">Outcome</p>
-      <div class="modal-outcome">${p.outcome}</div>
-      <p class="modal-section-label" style="margin-top:1.5rem;">What I'd do differently</p>
-      <p>${p.reflection}</p>
-    </div>
-  `;
+      <p class="modal-lbl">The problem</p><p>${p.problem}</p>
+      <p class="modal-lbl">What I built</p><ul>${p.what.map(w=>`<li>${w}</li>`).join('')}</ul>
+      <p class="modal-lbl">Outcome</p><div class="modal-outcome">${p.outcome}</div>
+      <p class="modal-lbl" style="margin-top:1.5rem">What I'd do differently</p><p>${p.reflection}</p>
+    </div>`;
   document.getElementById('modal-overlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-
-function closeModal() {
+function closeModal(){
   document.getElementById('modal-overlay').classList.remove('active');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-document.getElementById('modal-close').addEventListener('click', closeModal);
-document.getElementById('modal-overlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, idx) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), idx * 80);
-    }
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
   });
-}, { threshold: 0.1 });
+});
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((e,idx)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),idx*80);
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
